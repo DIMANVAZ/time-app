@@ -3,19 +3,25 @@ version: '3'
 services:
     frontend:
       build: ./frontend
+      restart: always
       ports:
-        - '3333:3000'
+        - '3000:3000' # если порты разные, то будет проблема с webSocket, связана она с hot-reload.
     api:
       build: ./api
+      restart: always
+      depends_on:
+        - mysql
       ports:
         - '5555:5000'
     mysql:
       image: mysql
+      restart: always
       environment:
         MYSQL_ROOT_PASSWORD: password
         MYSQL_DATABASE: time_db
     adminer:
       image: adminer
+      restart: always
       ports:
         - '8888:8080'
 
