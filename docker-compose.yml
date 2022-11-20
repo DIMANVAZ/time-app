@@ -4,11 +4,17 @@ services:
     frontend:
       build: ./frontend
       restart: always
+      volumes:
+        - /app/node_modules # исключение папки контейнера из переопределения ниже (т.к. в папке ./frontend нету node_modules
+        - ./frontend:/app   # подключение внешней папки приложения (в Windows) в качестве папки для контейнера
       ports:
         - '3000:3000' # если порты разные, то будет проблема с webSocket, связана она с hot-reload.
     api:
       build: ./api
       restart: always
+      volumes:
+        - /app/node_modules # исключение папки контейнера из переопределения ниже (т.к. в папке ./frontend нету node_modules
+        - ./api:/app        # подключение внешней папки приложения (в Windows) в качестве папки для контейнера
       depends_on:
         - mysql
       ports:
@@ -19,9 +25,12 @@ services:
       environment:
         MYSQL_ROOT_PASSWORD: password
         MYSQL_DATABASE: time_db
+      volumes:
+        - mysql_data:/var/lib/mysql
     adminer:
       image: adminer
       restart: always
       ports:
         - '8888:8080'
-
+volumes:
+  mysql_data:
