@@ -17,12 +17,18 @@ services:
         - ./api:/app        # подключение внешней папки приложения (в Windows) в качестве папки для контейнера
       depends_on:
         - mysql
+      environment:  # эти переменные средЫ появятся в процессе при запуске, и Нода их считает в файле ./api/src/utils/mysqlPool.mjs
+        MYSQL_HOST: mysql
+        MYSQL_PORT: '3306'
+        MYSQL_USER: root
+        MYSQL_PASSWORD: password
+        MYSQL_DB: time_db
       ports:
         - '5555:5000'
     mysql:
       image: mysql
       restart: always
-      environment:
+      environment:  # а эти переменные средЫ, видимо, нужны для контейнера mysql
         MYSQL_ROOT_PASSWORD: password
         MYSQL_DATABASE: time_db
       volumes:
