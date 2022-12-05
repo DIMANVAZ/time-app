@@ -1,3 +1,7 @@
+# Это версия с образами в удалённом репо (dockerHub) и их скачиванием
+# маппинг томов тут не делаем (условно - надо запустить где-то приложение, имя только docker-compose файл).
+# ... а дальнейшая разработка с сохранениями не планируется, да и локальных папок никаких нету
+
 version: '3'
 
 services:
@@ -22,7 +26,7 @@ services:
     mysql:
       image: mysql
       restart: always
-      environment:  # а эти переменные средЫ, видимо, нужны для контейнера mysql
+      environment:  # а эти переменные средЫ мы ЗАДАЁМ: то есть БД мы называем time_db, а пароль задаём password
         MYSQL_ROOT_PASSWORD: password
         MYSQL_DATABASE: time_db
       volumes:

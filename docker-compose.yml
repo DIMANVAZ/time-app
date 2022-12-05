@@ -1,10 +1,12 @@
+# Это версия с СОЗДАНИЕМ образа (build)
+
 version: '3'
 
 services:
     frontend:
       build: ./frontend
       restart: always
-      volumes:
+      volumes:              # маппинг томов
         - /app/node_modules # исключение папки контейнера из переопределения ниже (т.к. в папке ./frontend нету node_modules
         - ./frontend:/app   # подключение внешней папки приложения (в Windows) в качестве папки для контейнера
       ports:
@@ -28,7 +30,7 @@ services:
     mysql:
       image: mysql
       restart: always
-      environment:  # а эти переменные средЫ, видимо, нужны для контейнера mysql
+      environment:  # а эти переменные средЫ мы ЗАДАЁМ: то есть БД мы называем time_db, а пароль задаём password
         MYSQL_ROOT_PASSWORD: password
         MYSQL_DATABASE: time_db
       volumes:
