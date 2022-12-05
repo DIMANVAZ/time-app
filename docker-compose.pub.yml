@@ -6,7 +6,7 @@ version: '3'
 
 services:
     frontend:
-      image: dimanvaz/time-app-frontend-dev
+      image: dimanvaz/time-app-frontend-dev #качаем образ
       restart: always
       ports:
         - '3000:3000' # если порты разные, то будет проблема с webSocket, связана она с hot-reload.
